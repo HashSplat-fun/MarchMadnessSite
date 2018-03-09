@@ -30,7 +30,8 @@ except:
 def tournament_standings(request, user=None):
     year = request.GET.get("year", current_year())
     tournament = request.GET.get("tournament", None)
-    user = request.GET.get("user", user)
+    if not isinstance(user, get_user_model()):
+        user = request.GET.get("user", user)
 
     if user is None:
         page_title = "Tournament Standings"
@@ -83,7 +84,8 @@ def view_round(request, pk):
     tourney = get_object_or_404(Tournament, Q(year=year) | Q(name__iexact=tournament))
     rnd = tourney.rounds.get(pk=pk)
     if user:
-        user = get_object_or_404(get_user_model(), username__iexact=user)
+        if not isinstance(user, get_user_model()):
+            user = get_object_or_404(get_user_model(), username__iexact=user)
         page_title = "%s's Bracket" % user
     else:
         page_title = None
