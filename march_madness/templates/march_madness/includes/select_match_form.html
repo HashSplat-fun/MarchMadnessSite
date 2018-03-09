@@ -1,0 +1,22 @@
+{% load materialize_nav %}
+{% load march_madness_tags %}
+{% if form %}
+    <form id="match_{{ match.id }}_form" method="post" action="{% url "march_madness:user_prediction" %}">
+        {% csrf_token %}
+
+        {{ form.guess }}
+        {% render_form_field form.team1_score %}
+        {% render_form_field form.team2_score %}
+
+        {% for field in form.hidden_fields %}
+            {{ field }}
+        {% endfor %}
+    </form>
+{% endif %}
+
+
+<script type="text/javascript">
+    $('#{{ form.guess.id_for_label }}').on('change', {% render_match_form_ajax_func match %});
+    $('#{{ form.team1_score.id_for_label }}[type=number]').blur({% render_match_form_ajax_func match %});
+    $('#{{ form.team2_score.id_for_label }}[type=number]').blur({% render_match_form_ajax_func match %});
+</script>

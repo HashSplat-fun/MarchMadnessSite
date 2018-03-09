@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load materialize_nav %}
+{% load march_madness_tags %}
+
+{% block content %}
+    {% if PageTitle %}
+        <h4 class="center">{{ PageTitle }}</h4>
+        <div class="divider"></div>
+    {% endif %}
+
+    <h5 class="center">{{ tournament }}</h5>
+
+    <div class="row">
+{% for rnd in tournament.rounds.all %}
+    <div class="col offset-s{{ forloop.counter0 }}">
+    {% for match in matches|get_item:rnd %}
+        {% render_match match %}
+    {% endfor %}
+    </div>
+{% endfor %}
+    </div>
+
+{% endblock %}

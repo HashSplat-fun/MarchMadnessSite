@@ -1,0 +1,478 @@
+[
+  {
+    "model": "march_madness.team",
+    "pk": 1,
+    "fields": {
+      "name": "Kansas Jayhawks"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 2,
+    "fields": {
+      "name": "North Carolina Tar Heels"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 3,
+    "fields": {
+      "name": "Michigan State Spartans"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 4,
+    "fields": {
+      "name": "Virginia Cavaliers"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 5,
+    "fields": {
+      "name": "Villanova Wildcats"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 6,
+    "fields": {
+      "name": "Oklahoma Sooners"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 7,
+    "fields": {
+      "name": "Oregon Ducks"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 8,
+    "fields": {
+      "name": "Kentucky Wildcats"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 9,
+    "fields": {
+      "name": "West Virginia Mountaineers"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 10,
+    "fields": {
+      "name": "Miami Hurricanes"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 11,
+    "fields": {
+      "name": "Xavier Musketeers"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 12,
+    "fields": {
+      "name": "Utah Utes"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 13,
+    "fields": {
+      "name": "Texas A&M Aggies"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 14,
+    "fields": {
+      "name": "Indiana Hoosiers"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 15,
+    "fields": {
+      "name": "Purdue Boilermakers"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 16,
+    "fields": {
+      "name": "Maryland Terrapins"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 17,
+    "fields": {
+      "name": "California Golden Bears"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 18,
+    "fields": {
+      "name": "Iowa State Cyclones"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 19,
+    "fields": {
+      "name": "Duke Blue Devils"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 20,
+    "fields": {
+      "name": "Seton Hall Pirates"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 21,
+    "fields": {
+      "name": "Arizona Wildcats"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 22,
+    "fields": {
+      "name": "Iowa Hawkeyes"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 23,
+    "fields": {
+      "name": "Baylor Bears"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 24,
+    "fields": {
+      "name": "Texas Longhorns"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 25,
+    "fields": {
+      "name": "Notre Dame Fighting Irish"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 26,
+    "fields": {
+      "name": "Wisconsin Badgers"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 27,
+    "fields": {
+      "name": "UConn Huskies"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 28,
+    "fields": {
+      "name": "Providence Friars"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 29,
+    "fields": {
+      "name": "Wichita State Shockers"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 30,
+    "fields": {
+      "name": "St. Joseph's Hawks"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 31,
+    "fields": {
+      "name": "Dayton Flyers"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 32,
+    "fields": {
+      "name": "Texas Tech Red Raiders"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 33,
+    "fields": {
+      "name": "VCU Rams"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 34,
+    "fields": {
+      "name": "Butler Bulldogs"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 35,
+    "fields": {
+      "name": "Cincinnati Bearcats"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 36,
+    "fields": {
+      "name": "Oregon State Beavers"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 37,
+    "fields": {
+      "name": "USC Trojans"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 38,
+    "fields": {
+      "name": "Pittsburgh Panthers"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 39,
+    "fields": {
+      "name": "Colorado Buffaloes"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 40,
+    "fields": {
+      "name": "Temple Owls"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 41,
+    "fields": {
+      "name": "Michigan Wolverines"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 42,
+    "fields": {
+      "name": "Vanderbilt Commodores"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 43,
+    "fields": {
+      "name": "Syracuse Orange"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 44,
+    "fields": {
+      "name": "Tulsa Golden Hurricane"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 45,
+    "fields": {
+      "name": "Gonzaga Bulldogs"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 46,
+    "fields": {
+      "name": "Stephen F. Austin Lumberjacks"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 47,
+    "fields": {
+      "name": "Yale Bulldogs"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 48,
+    "fields": {
+      "name": "Northern Iowa Panthers"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 49,
+    "fields": {
+      "name": "Arkansas-Little Rock Trojans"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 50,
+    "fields": {
+      "name": "Hawaii Rainbow Warriors"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 51,
+    "fields": {
+      "name": "Chattanooga Mocs"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 52,
+    "fields": {
+      "name": "Stony Brook Seawolves"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 53,
+    "fields": {
+      "name": "Iona Gaels"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 54,
+    "fields": {
+      "name": "UNC Wilmington Seahawks"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 55,
+    "fields": {
+      "name": "South Dakota State Jackrabbits"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 56,
+    "fields": {
+      "name": "Fresno State Bulldogs"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 57,
+    "fields": {
+      "name": "Buffalo Bulls"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 58,
+    "fields": {
+      "name": "Middle Tennessee State Blue Raiders"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 59,
+    "fields": {
+      "name": "Green Bay Phoenix"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 60,
+    "fields": {
+      "name": "Weber State Wildcats"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 61,
+    "fields": {
+      "name": "Cal State Bakersfield Roadrunners"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 62,
+    "fields": {
+      "name": "UNC Asheville Bulldogs"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 63,
+    "fields": {
+      "name": "Hampton Pirates"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 64,
+    "fields": {
+      "name": "Florida Gulf Coast Eagles"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 65,
+    "fields": {
+      "name": "Austin Peay Governors"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 66,
+    "fields": {
+      "name": "Fairleigh Dickinson Knights"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 67,
+    "fields": {
+      "name": "Holy Cross Crusaders"
+    }
+  },
+  {
+    "model": "march_madness.team",
+    "pk": 68,
+    "fields": {
+      "name": "Southern Jaguars"
+    }
+  }
+]

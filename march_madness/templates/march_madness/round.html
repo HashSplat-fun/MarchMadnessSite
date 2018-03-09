@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load materialize_nav %}
+{% load march_madness_tags %}
+
+{% block content %}
+    {% if PageTitle %}
+        <h5 class="center">{{ PageTitle }}</h5>
+        <div class="divider"></div>
+    {% endif %}
+
+    <div class="row">
+    {% for match in matches %}
+        <div class="col s2 m2">
+            {% render_match match %}
+        </div>
+    {% endfor %}
+    </div>
+
+{% endblock %}

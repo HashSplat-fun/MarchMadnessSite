@@ -1,0 +1,614 @@
+[
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 1,
+      "seed": 1
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 2,
+      "seed": 2
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 3,
+      "seed": 3
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 4,
+      "seed": 4
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 5,
+      "seed": 5
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 6,
+      "seed": 6
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 7,
+      "seed": 7
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 8,
+      "seed": 8
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 9,
+      "seed": 9
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 10,
+      "seed": 10
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 11,
+      "seed": 11
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 12,
+      "seed": 12
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 13,
+      "seed": 13
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 14,
+      "seed": 14
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 15,
+      "seed": 15
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 16,
+      "seed": 16
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 17,
+      "seed": 17
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 18,
+      "seed": 18
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 19,
+      "seed": 19
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 20,
+      "seed": 20
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 21,
+      "seed": 21
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 22,
+      "seed": 22
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 23,
+      "seed": 23
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 24,
+      "seed": 24
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 25,
+      "seed": 25
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 26,
+      "seed": 26
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 27,
+      "seed": 27
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 28,
+      "seed": 28
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 29,
+      "seed": 29
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 30,
+      "seed": 30
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 31,
+      "seed": 31
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 32,
+      "seed": 32
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 33,
+      "seed": 33
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 34,
+      "seed": 34
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 35,
+      "seed": 35
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 36,
+      "seed": 36
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 37,
+      "seed": 37
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 38,
+      "seed": 38
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 39,
+      "seed": 39
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 40,
+      "seed": 40
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 41,
+      "seed": 41
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 42,
+      "seed": 42
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 43,
+      "seed": 43
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 44,
+      "seed": 44
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 45,
+      "seed": 45
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 46,
+      "seed": 46
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 47,
+      "seed": 47
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 48,
+      "seed": 48
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 49,
+      "seed": 49
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 50,
+      "seed": 50
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 51,
+      "seed": 51
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 52,
+      "seed": 52
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 53,
+      "seed": 53
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 54,
+      "seed": 54
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 55,
+      "seed": 55
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 56,
+      "seed": 56
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 57,
+      "seed": 57
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 58,
+      "seed": 58
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 59,
+      "seed": 59
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 60,
+      "seed": 60
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 61,
+      "seed": 61
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 62,
+      "seed": 62
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 63,
+      "seed": 63
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 64,
+      "seed": 64
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 65,
+      "seed": 65
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 66,
+      "seed": 66
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 67,
+      "seed": 67
+    }
+  },
+  {
+    "model": "march_madness.teamrank",
+    "pk": null,
+    "fields": {
+      "year": 2018,
+      "team": 68,
+      "seed": 68
+    }
+  }
+]

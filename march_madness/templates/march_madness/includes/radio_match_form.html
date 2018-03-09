@@ -1,0 +1,37 @@
+{% load materialize_nav %}
+{% load march_madness_tags %}
+{% if form %}
+    <form id="match_{{ match.id }}_form" method="POST" action="{% url "march_madness:user_prediction" %}">
+        {% csrf_token %}
+
+    {% for radio in form.guess %}
+        <label for="{{ radio.data.attrs.id }}" style="display: inline">
+            <input type='{{ radio.data.type }}' class="with-gap" id="{{ radio.data.attrs.id }}"
+                   name="{{ radio.data.name }}" value="{{ radio.data.value }}"
+                   {% if radio.data.attrs.checked %}checked{% endif %}
+                   {% if radio.data.attrs.is_hidden %}hidden{% endif %}
+                   {% if radio.data.attrs.required %}required{% endif %}>
+            <span>{{ radio.choice_label }}</span>
+        </label>
+
+        {% if forloop.first %}
+            {% render_form_field form.team1_score %}
+        {% else %}
+            {% render_form_field form.team2_score %}
+        {% endif %}
+    {% endfor %}
+
+        {% for field in form.hidden_fields %}
+            {{ field }}
+        {% endfor %}
+    </form>
+{% endif %}
+
+<script type="text/javascript">
+
+{% for radio in form.guess %}
+    $('#{{ radio.data.attrs.id }}[type=radio]').change({% render_match_form_ajax_func match %});
+{% endfor %}
+    $('#{{ form.team1_score.id_for_label }}[type=number]').blur({% render_match_form_ajax_func match %});
+    $('#{{ form.team2_score.id_for_label }}[type=number]').blur({% render_match_form_ajax_func match %});
+</script>

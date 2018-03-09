@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load materialize_nav %}
+{% load march_madness_tags %}
+
+{% block content %}
+    {% if PageTitle %}
+        <h5 class="center">{{ PageTitle }}</h5>
+        <div class="divider"></div>
+    {% endif %}
+
+    <div class="row">
+    {% for group in groups %}
+        <div class="col s2 m2">
+            <div class="card-panel">
+                <b>{{ group.name }}</b><br />
+                Captain: {{ group.captain.first_name }} {{ group.captain.last_name }}<br />
+                Members:
+                <ul style="margin-top: 0px;">
+                {% for mem in group.members %}
+                    <li style="margin-left: 1rem;">{{ mem.first_name }} {{ mem.last_name }} - {{ mem.score }}</li>
+                {% endfor %}
+                </ul>
+                Total Score: {{ group.score }}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+{% endblock %}

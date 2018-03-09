@@ -1,0 +1,13 @@
+function post_ajax_match(){
+    var frm = $("#match_{{ match.id }}_form");
+    setup_ajax();
+    $.ajax({
+        type: frm.attr('method'),
+        url: frm.attr('action'),
+        data: frm.serialize(),
+        success: function (data) {
+        },
+        error: function(data) {
+        }
+    });
+}
