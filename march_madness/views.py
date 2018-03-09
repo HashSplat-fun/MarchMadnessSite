@@ -30,13 +30,13 @@ except:
 def tournament_standings(request, user=None):
     year = request.GET.get("year", current_year())
     tournament = request.GET.get("tournament", None)
-    if not isinstance(user, get_user_model()):
-        user = request.GET.get("user", user)
+    user = request.GET.get("user", user)
 
     if user is None:
         page_title = "Tournament Standings"
     else:
-        user = get_object_or_404(get_user_model(), username__iexact=user)
+        if not isinstance(user, get_user_model()):
+            user = get_object_or_404(get_user_model(), username__iexact=user)
         page_title = "%s Bracket" % user
     context = MarchMadnessNav.get_context(request, page_title=page_title, fixed_sidebar=False, container_on=False)
 
