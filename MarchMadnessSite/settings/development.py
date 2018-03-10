@@ -1,8 +1,20 @@
 from .base_settings import *
 
 SECRET_KEY = None  # CHANGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 DEBUG = True
 
