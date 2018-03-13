@@ -4,7 +4,10 @@ from django.db import models
 from django.db.models import Q, F, Case, When, Value, Sum
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.safestring import mark_safe
 from itertools import chain
+
+from materialize_nav.utils import image_exists
 
 
 def validate_year(value):
@@ -42,6 +45,11 @@ class Team(models.Model):
             return self.rankings.get(year=year).seed
         except:
             return None
+
+    def display(self):
+        if image_exists(self.icon):
+            return mark_safe("")
+        return mark_safe()
     
     def __str__(self):
         return self.name
@@ -71,7 +79,8 @@ class Tournament(models.Model):
 
     def get_user_score(self, user):
         """Return the user score."""
-        user_guesses = UserPrediction.objects.filter(user=user, match__round__tournament=self, guess__isnull=False)
+        user_guesses = user.predictions.select_related("match").filter(match__round__tournament=self,
+                                                                       guess__isnull=False)
         ann = user_guesses.annotate(success=Case(When(Q(guess=F("match__victor")), then=Value(1)),
                                                  default=Value(0), output_field=models.IntegerField()))
         return ann.aggregate(score=Sum("success"))["score"] or 0
@@ -119,6 +128,9 @@ class Round(models.Model):
     def match_names(self):
         return ", ".join((str(match) for match in self.matches.all()))
 
+    def get_absolute_url(self):
+        return reverse("march_madness:round", kwargs={"pk": self.id})
+
     class Meta:
         ordering = ("tournament__year", "round_number")
 
@@ -152,24 +164,41 @@ class Match(models.Model):
     #     except (Match.DoesNotExist, Round.DoesNotExist):
     #         pass
 
-    def get_team_choices(self):
+    def get_team_choices(self, user=None):
+        team1_choices = None
+        team2_choices = None
         if self.team1 and self.team2:
             return [self.team1, self.team2]
 
         match1, match2 = self.parent_matches()
-        if self.team1:
-            team1_choices = [self.team1]
-        elif match1 is None:
-            team1_choices = Team.objects.all()
-        else:
-            team1_choices = match1.get_team_choices()
+        try:
+            guess = match1.user_prediction.get(user=user)
+            if guess.guess:
+                team1_choices = [guess.guess]
+        except UserPrediction.DoesNotExist:
+            pass
+        try:
+            guess = match2.user_prediction.get(user=user)
+            if guess.guess:
+                team2_choices = [guess.guess]
+        except UserPrediction.DoesNotExist:
+            pass
 
-        if self.team2:
-            team2_choices = [self.team2]
-        elif match2 is None:
-            team2_choices = Team.objects.all()
-        else:
-            team2_choices = match2.get_team_choices()
+        if team1_choices is None:
+            if self.team1:
+                team1_choices = [self.team1]
+            elif match1 is None:
+                team1_choices = Team.objects.all()
+            else:
+                team1_choices = match1.get_team_choices()
+
+        if team2_choices is None:
+            if self.team2:
+                team2_choices = [self.team2]
+            elif match2 is None:
+                team2_choices = Team.objects.all()
+            else:
+                team2_choices = match2.get_team_choices()
 
         return chain(team1_choices, team2_choices)
 
@@ -188,7 +217,10 @@ class Match(models.Model):
         return match1, match2
 
     def prediction(self, user):
-        return self.user_prediction.get(user=user)
+        try:
+            return self.user_prediction.get(user=user)
+        except UserPrediction.DoesNotExist:
+            return None
 
     def get_absolute_url(self):
         return reverse('march_madness:round', args=[self.id])
@@ -200,7 +232,7 @@ class Match(models.Model):
 
 
 class UserPrediction(models.Model):
-    user = models.ForeignKey(get_user_model(), on_delete=models.PROTECT)
+    user = models.ForeignKey(get_user_model(), on_delete=models.PROTECT, related_name="predictions")
     match = models.ForeignKey(Match, on_delete=models.PROTECT, related_name="user_prediction")
 
     guess = models.ForeignKey(Team, on_delete=models.PROTECT)

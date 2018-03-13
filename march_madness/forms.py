@@ -32,7 +32,7 @@ class UserPredictionForm(forms.ModelForm):
 
         # Get the team choices and check if the guess widget should be a radio button selection
         self._radio_form = False
-        choices = [(t.id, str(t)) for t in match.get_team_choices()]
+        choices = [(t.id, str(t)) for t in match.get_team_choices(user=user)]
         if len(choices) == 2:
             # If only 2 choices change to a radio button selection
             self._radio_form = True
