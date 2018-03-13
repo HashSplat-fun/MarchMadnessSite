@@ -7,8 +7,6 @@ from django.utils import timezone
 from django.utils.safestring import mark_safe
 from itertools import chain
 
-from materialize_nav.utils import image_exists
-
 
 def validate_year(value):
     if len(str(value)) != 4 or value < 2000:  # Your desired conditions here
@@ -47,7 +45,7 @@ class Team(models.Model):
             return None
 
     def get_name_with_icon(self):
-        if self.icon and image_exists(self.icon.url):
+        if self.icon and self.icon.url != "":
             return mark_safe("<img style='height: 24px; vertical-align: middle;' src='%s'> %s" % (self.icon.url, self.name))
         return self.name
     
