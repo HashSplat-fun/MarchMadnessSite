@@ -21,7 +21,7 @@
     {% else %}-----{% endif %}
     <div class="divider"></div>
 
-    {% if match.team2 %}{{ match.team2 }}
+    {% if match.team2 %}{% if match.team2.icon %}<img style="height: 24px" src="{{ match.team2.icon.url }}">{% endif %} {{ match.team2 }}
         {% if match.victor %}
             {% if match.victor == match.team2 %}
                 {% if match.user_guess.guess == match.team2 %}
