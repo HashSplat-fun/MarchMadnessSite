@@ -230,6 +230,27 @@ class Match(models.Model):
             return "Round " + str(self.round.round_number) + " Match " + str(self.match_number)
         return "Match " + str(self.match_number)
 
+    def save(self, *args, **kwargs):
+        ret = super().save(*args, **kwargs)
+
+        # When the victor is chosen set team1 or team2 match options for the child match
+        if self.victor:
+            try:
+                num = int(self.match_number // 2)
+                if self.match_number % 2 == 0:
+                    # Even team 2
+                    child = Match.objects.get(round__round_number=self.round.round_number+1, match_number=num)
+                    child.team2 = self.victor
+                else:
+                    # Odd team 1
+                    child = Match.objects.get(round__round_number=self.round.round_number+1, match_number=num+1)
+                    child.team1 = self.victor
+                child.save()
+            except (Match.DoesNotExist, Match.MultipleObjectsReturned):
+                pass
+
+        return ret
+
 
 class UserPrediction(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.PROTECT, related_name="predictions")

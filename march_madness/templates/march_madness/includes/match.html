@@ -18,6 +18,11 @@
         {% elif match.user_guess.guess == match.team1 %}
             <i class="material-icons tooltipped" data-tooltip="Prediction, winner unknown" style="vertical-align: middle;">favorite</i>
         {% endif %}
+    {% elif match.parent_team1_guess %}
+        {{ match.parent_team1_guess.guess.get_name_with_icon }}
+        {% if match.user_guess.guess == match.parent_team1_guess.guess %}
+            <i class="material-icons tooltipped" data-tooltip="Prediction, winner unknown" style="vertical-align: middle;">favorite</i>
+        {% endif %}
     {% else %}-----{% endif %}
     <div class="divider"></div>
 
@@ -31,6 +36,11 @@
                 {% endif %}
             {% endif %}
         {% elif match.user_guess.guess == match.team2 %}
+            <i class="material-icons tooltipped" data-tooltip="Prediction, winner unknown" style="vertical-align: middle;">favorite</i>
+        {% endif %}
+    {% elif match.parent_team2_guess %}
+        {{ match.parent_team2_guess.guess.get_name_with_icon }}
+        {% if match.user_guess.guess == match.parent_team2_guess.guess %}
             <i class="material-icons tooltipped" data-tooltip="Prediction, winner unknown" style="vertical-align: middle;">favorite</i>
         {% endif %}
     {% else %}-----{% endif %}

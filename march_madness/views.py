@@ -78,6 +78,19 @@ def get_form_or_match(request, user, match, rnd, *args, **kwargs):
     elif match.victor or (user != request.user or not user.is_authenticated) or \
             (rnd and (rnd.start_date and now >= rnd.start_date)):
         match.user_guess = match.prediction(user)
+
+        parent1, parent2 = match.parent_matches()
+        if parent1:
+            match.parent_team1_guess = parent1.prediction(user)
+            if not match.team1 and parent1.victor:
+                match.team1 = parent1.victor
+                match.save()
+        if parent2:
+            match.parent_team2_guess = parent2.prediction(user)
+            if not match.team2 and parent2.victor:
+                match.team2 = parent2.victor
+                match.save()
+
         return match
 
     form = UserPredictionForm(user, match, *args, **kwargs)
