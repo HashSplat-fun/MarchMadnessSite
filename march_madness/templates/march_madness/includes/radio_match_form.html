@@ -3,7 +3,6 @@
 {% if form %}
     <form id="match_{{ match.id }}_form" method="POST" action="{% url "march_madness:user_prediction" %}">
         {% csrf_token %}
-
     {% for radio in form.guess %}
         <label for="{{ radio.data.attrs.id }}" style="display: inline">
             <input type='{{ radio.data.type }}' class="with-gap" id="{{ radio.data.attrs.id }}"

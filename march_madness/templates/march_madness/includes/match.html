@@ -1,22 +1,22 @@
 {% load march_madness_tags %}
-<div class="card-panel">
+<div class="card-panel" style="width: 16rem; margin: 0.5rem; padding: 0.5rem;">
 {% if match.date %}<p><b>Date:</b> {{ match.date }}</p>{% endif %}
 {% if match.is_radio_form %}
     {% render_radio_match_form match %}
 {% elif match.is_select_form %}
     {% render_select_match_form match %}
 {% else %}
-    {% if match.team1 %}{% if match.team1.icon %}<img style="height: 24px" src="{{ match.team1.icon.url }}">{% endif %}{{ match.team1 }}
+    {% if match.team1 %}{% if match.team1.icon %}<img style="height: 24px" src="{{ match.team1.icon.url }}">{% endif %} {{ match.team1 }}
         {% if match.victor %}
             {% if match.victor == match.team1 %}
                 {% if match.user_guess.guess == match.team1 %}
-                    <i class="material-icons tooltipped" data-tooltip="I guessed right">star</i>
+                    <i class="material-icons tooltipped" data-tooltip="Correct prediction">star</i>
                 {% else %}
-                    <i class="material-icons tooltipped" data-tooltip="I guessed wrong">star_border</i>
+                    <i class="material-icons tooltipped" data-tooltip="Incorrect prediction">star_border</i>
                 {% endif %}
             {% endif %}
         {% elif match.user_guess.guess == match.team1 %}
-            <i class="material-icons tooltipped" data-tooltip="My choice, winner unknown">favorite</i>
+            <i class="material-icons tooltipped" data-tooltip="Prediction, winner unknown">favorite</i>
         {% endif %}
     {% else %}-----{% endif %}
     <div class="divider"></div>
@@ -25,13 +25,13 @@
         {% if match.victor %}
             {% if match.victor == match.team2 %}
                 {% if match.user_guess.guess == match.team2 %}
-                    <i class="material-icons tooltipped" data-tooltip="I guessed right">star</i>
+                    <i class="material-icons tooltipped" data-tooltip="Correct!">star</i>
                 {% else %}
-                    <i class="material-icons tooltipped" data-tooltip="I guessed wrong">star_border</i>
+                    <i class="material-icons tooltipped" data-tooltip="Incorrect prediction">star_border</i>
                 {% endif %}
             {% endif %}
         {% elif match.user_guess.guess == match.team2 %}
-            <i class="material-icons tooltipped" data-tooltip="My choice, winner unknown">favorite</i>
+            <i class="material-icons tooltipped" data-tooltip="Prediction, winner unknown">favorite</i>
         {% endif %}
     {% else %}-----{% endif %}
     <div class="divider"></div>

@@ -10,14 +10,13 @@
 
     <h5 class="center">{{ tournament }}</h5>
 
-    <div class="row">
 {% for rnd in tournament.rounds.all %}
-    <div class="col offset-s{{ forloop.counter0 }}">
+    <div class="row" style="display: inline-grid">
+        <h5 style="margin-left: 1rem;">{{ rnd }}</h5>
     {% for match in matches|get_item:rnd %}
         {% render_match match %}
     {% endfor %}
     </div>
 {% endfor %}
-    </div>
 
 {% endblock %}

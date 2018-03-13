@@ -8,12 +8,10 @@
         <div class="divider"></div>
     {% endif %}
 
-    <div class="row">
-    {% for match in matches %}
-        <div class="col s2 m2">
-            {% render_match match %}
-        </div>
-    {% endfor %}
+{% for match in matches %}
+    <div class="" style="display: inline-grid">
+    {% render_match match %}
     </div>
+{% endfor %}
 
 {% endblock %}
