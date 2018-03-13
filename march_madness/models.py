@@ -46,10 +46,10 @@ class Team(models.Model):
         except:
             return None
 
-    def display(self):
-        if image_exists(self.icon):
-            return mark_safe("")
-        return mark_safe()
+    def get_name_with_icon(self):
+        if self.icon and image_exists(self.icon.url):
+            return mark_safe("<img style='height: 24px; vertical-align: middle;' src='%s'> %s" % (self.icon.url, self.name))
+        return self.name
     
     def __str__(self):
         return self.name
