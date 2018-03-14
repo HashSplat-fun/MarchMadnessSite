@@ -48,7 +48,10 @@ class Team(models.Model):
         if self.icon and self.icon.url != "":
             return mark_safe("<img style='height: 24px; vertical-align: middle;' src='%s'> %s" % (self.icon.url, self.name))
         return self.name
-    
+
+    class Meta:
+        ordering = ("name",)
+
     def __str__(self):
         return self.name
 
