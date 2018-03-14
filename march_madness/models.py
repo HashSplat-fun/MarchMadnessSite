@@ -80,7 +80,6 @@ class TeamRank(models.Model):
     seed = models.PositiveIntegerField(null=True, blank=True)
 
     class Meta:
-        unique_together = (("year", "team"), ("year", "seed"))
         ordering = ("year", "seed")
 
     def __str__(self):
