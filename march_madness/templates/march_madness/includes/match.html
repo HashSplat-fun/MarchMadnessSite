@@ -6,7 +6,7 @@
 {% elif match.is_select_form %}
     {% render_select_match_form match %}
 {% else %}
-    {% if match.team1 %}{{ match.team1.get_name_with_icon }}
+    {% if match.team1 %}{% display_team match.team1 match.round %}
         {% if match.victor %}
             {% if match.victor == match.team1 %}
                 {% if match.user_guess.guess == match.team1 %}
@@ -19,14 +19,14 @@
             <i class="material-icons tooltipped" data-tooltip="Prediction, winner unknown" style="vertical-align: middle;">favorite</i>
         {% endif %}
     {% elif match.parent_team1_guess %}
-        {{ match.parent_team1_guess.guess.get_name_with_icon }}
+        {% display_team match.parent_team1_guess.guess match.round %}
         {% if match.user_guess.guess == match.parent_team1_guess.guess %}
             <i class="material-icons tooltipped" data-tooltip="Prediction, winner unknown" style="vertical-align: middle;">favorite</i>
         {% endif %}
     {% else %}-----{% endif %}
     <div class="divider"></div>
 
-    {% if match.team2 %}{{ match.team2.get_name_with_icon }}
+    {% if match.team2 %}{% display_team match.team2 match.round %}
         {% if match.victor %}
             {% if match.victor == match.team2 %}
                 {% if match.user_guess.guess == match.team2 %}
@@ -39,7 +39,7 @@
             <i class="material-icons tooltipped" data-tooltip="Prediction, winner unknown" style="vertical-align: middle;">favorite</i>
         {% endif %}
     {% elif match.parent_team2_guess %}
-        {{ match.parent_team2_guess.guess.get_name_with_icon }}
+        {% display_team match.parent_team2_guess.guess match.round %}
         {% if match.user_guess.guess == match.parent_team2_guess.guess %}
             <i class="material-icons tooltipped" data-tooltip="Prediction, winner unknown" style="vertical-align: middle;">favorite</i>
         {% endif %}

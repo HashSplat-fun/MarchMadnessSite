@@ -44,10 +44,28 @@ class Team(models.Model):
         except:
             return None
 
-    def get_name_with_icon(self):
+    def get_name_with_icon(self, tournament=None):
+        text = self.name
+
+        # Add the seed
+        try:
+            # Match given
+            tournament = tournament.round.tournament
+        except:
+            try:
+                # Round given
+                tournament = tournament.tournament
+            except:
+                pass
+        try:
+            seed = self.rankings.get(year=tournament.year).seed
+            text += " (%d)" % seed
+        except:
+            pass
+
         if self.icon and self.icon.url != "":
-            return mark_safe("<img style='height: 24px; vertical-align: middle;' src='%s'> %s" % (self.icon.url, self.name))
-        return self.name
+            text = ("<img style='height: 24px; vertical-align: middle;' src='%s'> " % self.icon.url) + text
+        return mark_safe(text)
 
     class Meta:
         ordering = ("name",)

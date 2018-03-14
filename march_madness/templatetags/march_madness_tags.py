@@ -26,6 +26,32 @@ def render_select_match_form(form):
 
 
 @register.filter
+def team_rank(team, tournament=None):
+    try:
+        # Round was given
+        tournament = tournament.tournament
+    except:
+        pass
+    try:
+        return team.rankings.get(year=tournament.year).seed
+    except:
+        return None
+
+
+@register.simple_tag
+def display_team(team, tournament=None):
+    try:
+        # Round was given
+        tournament = tournament.tournament
+    except:
+        pass
+    try:
+        return team.get_name_with_icon(tournament)
+    except:
+        return team.get_name_with_icon()
+
+
+@register.filter
 def get_item(dit, key):
     try:
         return dit[key]
