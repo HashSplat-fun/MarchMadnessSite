@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib import admin
 
 
@@ -53,11 +54,21 @@ class MatchAdmin(admin.ModelAdmin):
     search_fields = ['team1__name', 'team2__name', 'victor__name']
     ordering = ('round__tournament', 'round__round_number', 'match_number')
 
-    def get_form(self, request, obj=None, **kwargs):
-        form = super().get_form(request, obj, **kwargs)
-        if form.initial["team1"] and form.initial["team2"]:
-            form.fields["victor"].choices = [()]
-        return form
+    class MatchForm(forms.ModelForm):
+
+        class Meta:
+            model = Match
+            exclude = ['name']
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+
+            if self.initial["team1"] and self.initial['team2']:
+                team1 = Team.objects.get(pk=self['team1'].value())
+                team2 = Team.objects.get(pk=self['team2'].value())
+                self.fields['victor'].choices = [(team1.id, str(team1)), (team2.id, str(team2))]
+
+    form = MatchForm
 
 
 @admin.register(UserPrediction)
