@@ -8,11 +8,11 @@
 {% else %}
     {% if match.team1 %}{% display_team match.team1 match.round %}
         {% if match.victor %}
-            {% if match.victor == match.team1 %}
-                {% if match.user_guess.guess == match.team1 %}
+            {% if match.user_guess.guess == match.team1 %}
+                {% if match.victor == match.team1 %}
                     <i class="material-icons green-text tooltipped" data-tooltip="Correct prediction" style="vertical-align: middle;">check</i>
                 {% else %}
-                    <i class="material-icons red-text tooltipped" data-tooltip="Incorrect prediction. This team won." style="vertical-align: middle;">close</i>
+                    <i class="material-icons red-text tooltipped" data-tooltip="I put my hope in this team ... they let me down" style="vertical-align: middle;">close</i>
                 {% endif %}
             {% endif %}
         {% elif match.user_guess.guess == match.team1 %}
@@ -28,11 +28,11 @@
 
     {% if match.team2 %}{% display_team match.team2 match.round %}
         {% if match.victor %}
-            {% if match.victor == match.team2 %}
-                {% if match.user_guess.guess == match.team2 %}
+            {% if match.user_guess.guess == match.team2 %}
+                {% if match.victor == match.team2 %}
                     <i class="material-icons green-text tooltipped" data-tooltip="Correct!" style="vertical-align: middle;">check</i>
                 {% else %}
-                    <i class="material-icons red-text tooltipped" data-tooltip="Incorrect prediction. This team won." style="vertical-align: middle;">close</i>
+                    <i class="material-icons red-text tooltipped" data-tooltip="I put my hope in this team ... they let me down" style="vertical-align: middle;">close</i>
                 {% endif %}
             {% endif %}
         {% elif match.user_guess.guess == match.team2 %}
