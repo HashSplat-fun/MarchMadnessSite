@@ -30,7 +30,7 @@
         {% if match.victor %}
             {% if match.victor == match.team2 %}
                 {% if match.user_guess.guess == match.team2 %}
-                    <i class="material-icons green-text medium tooltipped" data-tooltip="Correct!" style="vertical-align: middle;">check</i>
+                    <i class="material-icons green-text tooltipped" data-tooltip="Correct!" style="vertical-align: middle;">check</i>
                 {% else %}
                     <i class="material-icons red-text tooltipped" data-tooltip="My prediction, incorrect" style="vertical-align: middle;">close</i>
                 {% endif %}
