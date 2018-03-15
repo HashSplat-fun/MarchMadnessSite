@@ -10,18 +10,18 @@
         {% if match.victor %}
             {% if match.victor == match.team1 %}
                 {% if match.user_guess.guess == match.team1 %}
-                    <i class="material-icons tooltipped" data-tooltip="Correct prediction" style="vertical-align: middle;">star</i>
+                    <i class="material-icons green-text tooltipped" data-tooltip="Correct prediction" style="vertical-align: middle;">check</i>
                 {% else %}
-                    <i class="material-icons tooltipped" data-tooltip="Incorrect prediction" style="vertical-align: middle;">close</i>
+                    <i class="material-icons red-text tooltipped" data-tooltip="My prediction, incorrect" style="vertical-align: middle;">close</i>
                 {% endif %}
             {% endif %}
         {% elif match.user_guess.guess == match.team1 %}
-            <i class="material-icons tooltipped" data-tooltip="Prediction, winner unknown" style="vertical-align: middle;">check</i>
+            <i class="material-icons grey-text tooltipped grey-text" data-tooltip="Prediction, winner unknown" style="vertical-align: middle;">check</i>
         {% endif %}
     {% elif match.parent_team1_guess %}
         {% display_team match.parent_team1_guess.guess match.round %}
         {% if match.user_guess.guess == match.parent_team1_guess.guess %}
-            <i class="material-icons tooltipped" data-tooltip="Prediction, winner unknown" style="vertical-align: middle;">check</i>
+            <i class="material-icons grey-text tooltipped" data-tooltip="Prediction, winner unknown" style="vertical-align: middle;">check</i>
         {% endif %}
     {% else %}-----{% endif %}
     <div class="divider"></div>
@@ -30,18 +30,18 @@
         {% if match.victor %}
             {% if match.victor == match.team2 %}
                 {% if match.user_guess.guess == match.team2 %}
-                    <i class="material-icons tooltipped" data-tooltip="Correct!" style="vertical-align: middle;">star</i>
+                    <i class="material-icons green-text medium tooltipped" data-tooltip="Correct!" style="vertical-align: middle;">check</i>
                 {% else %}
-                    <i class="material-icons tooltipped" data-tooltip="Incorrect prediction" style="vertical-align: middle;">close</i>
+                    <i class="material-icons red-text tooltipped" data-tooltip="My prediction, incorrect" style="vertical-align: middle;">close</i>
                 {% endif %}
             {% endif %}
         {% elif match.user_guess.guess == match.team2 %}
-            <i class="material-icons tooltipped" data-tooltip="Prediction, winner unknown" style="vertical-align: middle;">check</i>
+            <i class="material-icons grey-text tooltipped" data-tooltip="Prediction, winner unknown" style="vertical-align: middle;">check</i>
         {% endif %}
     {% elif match.parent_team2_guess %}
         {% display_team match.parent_team2_guess.guess match.round %}
         {% if match.user_guess.guess == match.parent_team2_guess.guess %}
-            <i class="material-icons tooltipped" data-tooltip="Prediction, winner unknown" style="vertical-align: middle;">check</i>
+            <i class="material-icons grey-text tooltipped" data-tooltip="Prediction, winner unknown" style="vertical-align: middle;">check</i>
         {% endif %}
     {% else %}-----{% endif %}
     <div class="divider"></div>
