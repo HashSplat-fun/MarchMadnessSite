@@ -8,6 +8,7 @@ function post_ajax_match(){
         success: function (data) {
         },
         error: function(data) {
+            M.toast({"html": "Cannot vote! Cannot connect to server!" });
         }
     });
 }
