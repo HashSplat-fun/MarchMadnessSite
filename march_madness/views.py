@@ -4,10 +4,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils import timezone
 from django.db.models import Q
+from django.http import JsonResponse
 
 from materialize_nav import NavView, SearchView
 
-from .models import current_year, Tournament, Match
+from .models import current_year, Tournament, Match, Team
 from .forms import UserPredictionForm
 
 
@@ -140,9 +141,17 @@ def user_prediction(request):
 
     post_data = {key: request.POST[key] for key in request.POST}
     post_data["user"] = user.id
-    form = get_form_or_match(request, user, Match.objects.get(pk=request.POST["match"]), None, post_data)
+    match = Match.objects.get(pk=request.POST["match"])
+    form = get_form_or_match(request, user, match, None, post_data)
     if form.is_valid():
-        form.save()
+        instance = form.save()
+        if request.is_ajax():
+            return JsonResponse({'success': True, 'team': str(instance.guess)})
+    elif request.is_ajax():
+        try:
+            return JsonResponse({'success': False, 'team': str(Team.objects.get(pk=int(form["guess"].value())))})
+        except:
+            return JsonResponse({'success': False, 'team': ''})
 
     return redirect("march_madness:home")
 

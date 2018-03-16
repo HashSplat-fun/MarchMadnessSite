@@ -6,9 +6,14 @@ function post_ajax_match(){
         url: frm.attr('action'),
         data: frm.serialize(),
         success: function (data) {
+            if(data['success']){
+                M.toast({"html": "Successfully voted for '" + data['team'] + "'", "classes": 'rounded green'});
+            } else {
+                M.toast({"html": "Cannot vote! Invalid guess '" + data['team'] + "'!", "classes": 'red'});
+            }
         },
         error: function(data) {
-            M.toast({"html": "Cannot vote! Cannot connect to server!" });
+            M.toast({"html": "Cannot vote! Cannot connect to server!", "classes": 'red'});
         }
     });
 }
