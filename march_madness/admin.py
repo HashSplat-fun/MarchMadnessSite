@@ -66,7 +66,7 @@ class MatchAdmin(admin.ModelAdmin):
             if self.initial["team1"] and self.initial['team2']:
                 team1 = Team.objects.get(pk=self['team1'].value())
                 team2 = Team.objects.get(pk=self['team2'].value())
-                self.fields['victor'].choices = [(team1.id, str(team1)), (team2.id, str(team2))]
+                self.fields['victor'].choices = [(None, self.fields['victor'].empty_label), (team1.id, str(team1)), (team2.id, str(team2))]
 
     form = MatchForm
 
