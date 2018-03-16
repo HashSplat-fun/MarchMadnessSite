@@ -5,8 +5,11 @@
         {% csrf_token %}
 
         {{ form.guess }}
+
+    {% if match.round.round_number == match.num_rounds %}
         {% render_form_field form.team1_score %}
         {% render_form_field form.team2_score %}
+    {% endif %}
 
         {% for field in form.hidden_fields %}
             {{ field }}

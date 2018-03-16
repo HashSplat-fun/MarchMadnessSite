@@ -37,7 +37,8 @@ def tournament_standings(request):
     context = view.get_context(request, nav_items=nav_items)
 
     context["tournament"] = tourney
-    context["matches"] = {rnd: [get_form_or_match(request, None, mtch, rnd) for mtch in rnd.matches.all()]
+    num_rounds = tourney.rounds.count()
+    context["matches"] = {rnd: [get_form_or_match(request, None, mtch, rnd, num_rounds=num_rounds) for mtch in rnd.matches.all()]
                           for rnd in tourney.rounds.all().select_related()}
     return render(request, "march_madness/bracket.html", context)
 
@@ -66,13 +67,17 @@ def view_bracket(request, user=None):
 
     context["user"] = user
     context["tournament"] = tourney
-    context["matches"] = {rnd: [get_form_or_match(request, user, mtch, rnd) for mtch in rnd.matches.all()]
+    num_rounds = tourney.rounds.count()
+    context["matches"] = {rnd: [get_form_or_match(request, user, mtch, rnd, num_rounds=num_rounds) for mtch in rnd.matches.all()]
                           for rnd in tourney.rounds.all().select_related()}
     return render(request, "march_madness/bracket.html", context)
 
 
-def get_form_or_match(request, user, match, rnd, *args, **kwargs):
+def get_form_or_match(request, user, match, rnd, *args, num_rounds=None, **kwargs):
     now = timezone.now().date()
+
+    match.num_rounds = num_rounds
+
     if user is None:
         return match
     elif match.victor or (user != request.user or not user.is_authenticated) or \
@@ -120,7 +125,8 @@ def view_round(request, pk):
 
     context["tournament"] = tourney
     context["rnd"] = rnd
-    context["matches"] = [get_form_or_match(request, user, match, rnd) for match in rnd.matches.all()]
+    num_rounds = tourney.rounds.count()
+    context["matches"] = [get_form_or_match(request, user, match, rnd, num_rounds=num_rounds) for match in rnd.matches.all()]
 
     return render(request, "march_madness/round.html", context)
 

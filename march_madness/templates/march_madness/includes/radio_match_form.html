@@ -13,10 +13,12 @@
             <span>{{ radio.choice_label }}</span>
         </label>
 
-        {% if forloop.first %}
-            {% render_form_field form.team1_score %}
-        {% else %}
-            {% render_form_field form.team2_score %}
+        {% if match.round.round_number == match.num_rounds %}
+            {% if forloop.first %}
+                {% render_form_field form.team1_score %}
+            {% else %}
+                {% render_form_field form.team2_score %}
+            {% endif %}
         {% endif %}
     {% endfor %}
 
