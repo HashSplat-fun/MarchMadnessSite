@@ -190,15 +190,15 @@ class Match(models.Model):
 
         match1, match2 = self.parent_matches()
         try:
-            guess = match1.user_prediction.get(user=user)
-            if guess.guess:
-                team1_choices = [guess.guess]
+            predict1 = match1.user_prediction.get(user=user)
+            if predict1.guess:
+                team1_choices = [predict1.guess]
         except UserPrediction.DoesNotExist:
             pass
         try:
-            guess = match2.user_prediction.get(user=user)
-            if guess.guess:
-                team2_choices = [guess.guess]
+            predict2 = match2.user_prediction.get(user=user)
+            if predict2.guess:
+                team2_choices = [predict2.guess]
         except UserPrediction.DoesNotExist:
             pass
 
@@ -208,7 +208,7 @@ class Match(models.Model):
             elif match1 is None:
                 team1_choices = Team.objects.all()
             else:
-                team1_choices = match1.get_team_choices()
+                team1_choices = match1.get_team_choices(user=user)
 
         if team2_choices is None:
             if self.team2:
@@ -216,7 +216,7 @@ class Match(models.Model):
             elif match2 is None:
                 team2_choices = Team.objects.all()
             else:
-                team2_choices = match2.get_team_choices()
+                team2_choices = match2.get_team_choices(user=user)
 
         return chain(team1_choices, team2_choices)
 
