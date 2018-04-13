@@ -9,8 +9,8 @@
     {% endif %}
 
     {% for group in groups %}
-        <div class="col s12 m2" style="width: 18rem;">
-            <div class="card-panel">
+        <div class="col s12 m4 l3 xl2">
+            <div class="card-panel" style="padding: 16px;">
                 <b>{{ group.name }}</b><br />
 {#                Captain: {% render_user_image group.captain style='width:32px' %} {{ group.captain.first_name }} {{ group.captain.last_name }}<br />#}
                 Captain: <a href="{% url 'march_madness:bracket' user=group.captain.username %}">{% render_user_chip group.captain show_full_name=True %}</a><br />
