@@ -49,7 +49,7 @@ class RoundAdmin(admin.ModelAdmin):
 
 @admin.register(Match)
 class MatchAdmin(admin.ModelAdmin):
-    list_display = ("round", "match_number", "date", "team1", "team2", "victor")
+    list_display = ("round", "match_number", "date", "team1", "team2", "victor", "tournament_value")
     list_filter = ['round__tournament__year', 'round__round_number', 'match_number', 'date']
     search_fields = ['team1__name', 'team2__name', 'victor__name']
     ordering = ('round__tournament', 'round__round_number', 'match_number')

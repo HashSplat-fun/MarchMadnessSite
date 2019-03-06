@@ -99,7 +99,7 @@ class Tournament(models.Model):
         """Return the user score."""
         user_guesses = user.predictions.select_related("match").filter(match__round__tournament=self,
                                                                        guess__isnull=False)
-        ann = user_guesses.annotate(success=Case(When(Q(guess=F("match__victor")), then=Value(1)),
+        ann = user_guesses.annotate(success=Case(When(Q(guess=F("match__victor")), then=F('match__tournament_value')),
                                                  default=Value(0), output_field=models.IntegerField()))
         return ann.aggregate(score=Sum("success"))["score"] or 0
 
@@ -170,6 +170,8 @@ class Match(models.Model):
     team1_score = models.PositiveIntegerField(blank=True, null=True)
     team2_score = models.PositiveIntegerField(blank=True, null=True)
     victor = models.ForeignKey(Team, on_delete=models.PROTECT, null=True, blank=True, related_name="match_set_won")
+
+    tournament_value = models.IntegerField(default=1)
 
     class Meta:
         unique_together = ("round", "match_number")
