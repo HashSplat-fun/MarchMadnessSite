@@ -226,12 +226,14 @@ class Match(models.Model):
         num = int(self.match_number * 2)
         match_nums = [num - 1, num]
         try:
-            match1 = Match.objects.get(round__round_number=self.round.round_number-1, match_number=match_nums[0])
+            match1 = Match.objects.get(round__tournament=self.round.tournament,
+                                       round__round_number=self.round.round_number-1, match_number=match_nums[0])
         except Match.DoesNotExist:
             match1 = None
 
         try:
-            match2 = Match.objects.get(round__round_number=self.round.round_number-1, match_number=match_nums[1])
+            match2 = Match.objects.get(round__tournament=self.round.tournament,
+                                       round__round_number=self.round.round_number-1, match_number=match_nums[1])
         except Match.DoesNotExist:
             match2 = None
         return match1, match2
@@ -259,11 +261,13 @@ class Match(models.Model):
                 num = int(self.match_number // 2)
                 if self.match_number % 2 == 0:
                     # Even team 2
-                    child = Match.objects.get(round__round_number=self.round.round_number+1, match_number=num)
+                    child = Match.objects.get(round__tournament=self.round.tournament,
+                                              round__round_number=self.round.round_number+1, match_number=num)
                     child.team2 = self.victor
                 else:
                     # Odd team 1
-                    child = Match.objects.get(round__round_number=self.round.round_number+1, match_number=num+1)
+                    child = Match.objects.get(round__tournament=self.round.tournament,
+                                              round__round_number=self.round.round_number+1, match_number=num+1)
                     child.team1 = self.victor
                 child.save()
             except (Match.DoesNotExist, Match.MultipleObjectsReturned):
