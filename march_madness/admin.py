@@ -17,7 +17,7 @@ class TeamAdmin(admin.ModelAdmin):
 class TeamRankAdmin(admin.ModelAdmin):
     list_display = ("id", "team", 'year', 'seed')
     list_filter = ['year', 'seed', 'team']
-    search_fields = ['name', 'year', 'seed']
+    search_fields = ['team__name', 'year', 'seed']
     ordering = ('year', 'seed', 'team__name',)
 
 
