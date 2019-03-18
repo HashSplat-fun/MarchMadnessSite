@@ -1,6 +1,88 @@
+import collections
 from django.db.models import ManyToManyField, DateTimeField
 
-from .models import Round, Match, Team
+from .models import Round, Match, Team, TeamRank, Tournament
+
+
+def load_csv(filename):
+    """Load a csv file with the first line being the exact tournament name and the next lines be comma separated
+    columns of year, team name, seed.
+
+    Note:
+        The tournament must exist and must be "<name> <year>" separated by a space.
+        The teams and rounds will be created if given.
+
+    Example:
+        March Madness 2018
+
+        Year, Round, Match, Team 1, Team 1 Seed, Team 2, Team 2 Seed, Tournament Value
+        2018, 1, 1, UMBC Retrievers, 16, Virginia Cavaliers, 1, 1
+        2018, 1, 2, Kansas State Wildcats, 9,,,
+    """
+    tourney = None
+    columns = None
+
+    with open(filename) as f:
+        for i, line in enumerate(f):
+            line = line.strip()
+            if i == 0:
+                # Tournament must exist
+                n, y = [j.strip() for j in line.rsplit(' ', 1)]
+                tourney = Tournament.objects.get(name=n, year=int(y))
+            elif columns is None:
+                if ',' in line:
+                    columns = {c.strip(): j for j, c in enumerate(line.split(','))}
+            else:
+                items = [l.strip() for l in line.split(',')]
+                year = int(items[columns['Year']])
+                r_num = int(items[columns['Round']])
+                m_num = int(items[columns['Match']])
+                t_val = int(items[columns.get('Tournament Value', 1)])
+
+                # Create the round and match
+                rnd, created = Round.objects.get_or_create(tournament=tourney, round_number=r_num,
+                                                           name='Round ' + str(r_num))
+                match, created = Match.objects.get_or_create(round=rnd, match_number=m_num)
+
+                # Set the match value
+                match.tournament_value = t_val
+
+                # Setup Team 1 if given
+                try:
+                    t1 = items[columns.get('Team 1', None)]
+                    if t1.strip() == '':
+                        raise KeyError
+
+                    # Make or get Team 1
+                    team1, created = Team.objects.get_or_create(name=t1)
+                    match.team1 = team1
+
+                    # Make the team rank
+                    t1_seed = int(items[columns.get('Team 1 Seed', None)])
+                    team1_r, created = TeamRank.objects.get_or_create(team=team1, year=year, seed=t1_seed)
+                except (IndexError, ValueError, TypeError, KeyError, AttributeError):
+                    pass
+
+                # Setup Team 2 if given
+                try:
+                    t2 = items[columns['Team 2']]
+                    if t2.strip() == '':
+                        raise KeyError
+
+                    # Make or get Team 2
+                    team2, created = Team.objects.get_or_create(name=t2)
+                    match.team2 = team2
+
+                    # Make the team rank
+                    t2_seed = int(items[columns.get('Team 2 Seed', None)])
+                    team2_r, created = TeamRank.objects.get_or_create(team=team2, year=year, seed=t2_seed)
+                except (IndexError, ValueError, TypeError, KeyError, AttributeError):
+                    pass
+
+                # Save the match
+                match.save()
+
+    line_up_matches(tourney)
 
 
 def model_to_dict(self):

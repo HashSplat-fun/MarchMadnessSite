@@ -4,11 +4,12 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils import timezone
 from django.db.models import Q
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
+import urllib.parse
 
 from materialize_nav import NavView, SearchView
 
-from .models import current_year, Tournament, Match, Team
+from .models import current_year, Tournament, Round, Match, Team
 from .forms import UserPredictionForm
 
 
@@ -20,8 +21,55 @@ class MarchMadnessNav(NavView):
     ContainerOn = False
 
 
+MarchMadnessNav.add_navigation_header("Tournaments")
 MarchMadnessNav.add_navigation_header("March Madness")
 MarchMadnessNav.add_navigation("march_madness:group_scores", "Group Scores", app="March Madness")
+
+
+def reverse_params(view, *args, url_kwargs=None, **kwargs):
+    if url_kwargs is None:
+        url_kwargs = {}
+    if not isinstance(view, str):
+        url = view.get_absolute_url()
+    else:
+        url = reverse(view, args=args, kwargs=url_kwargs)
+    return url + '?' + urllib.parse.urlencode(kwargs)
+
+
+def get_tournament_or_404(request):
+    """Return the tournament requested for the given params.
+
+    Args:
+        request: Request object containing the get parameters
+    """
+    try:
+        return Tournament.objects.get(Q(name__iexact=request.GET.get("tournament", None)) |
+                                      Q(pk=request.GET.get("tournament", None)))
+    except Tournament.DoesNotExist:
+        pass
+    try:
+        t = list(Tournament.objects.filter().order_by('-year'))[0]
+        return t
+    except (IndexError, ValueError, TypeError, KeyError):
+        pass
+    raise Http404
+
+
+def get_nav_items(request, view, tourney):
+    """Return a context with all of the proper nav items."""
+    nav_items = [view.NavItem(reverse_params("march_madness:group_scores", tournament=t.pk), str(t), app="Tournaments")
+                 for t in Tournament.objects.all() if t != tourney]
+
+    nav_items.extend([view.NavItem(reverse_params(rnd, tournament=tourney.pk), str(rnd), app="March Madness")
+                      for rnd in tourney.rounds.all()])
+
+    if request.user and request.user.is_authenticated:
+        url = reverse_params("march_madness:bracket", url_kwargs={"user": request.user.username}, tournament=tourney.pk)
+        my_bracket = view.NavItem(url, "My Bracket", app="March Madness")
+        nav_items = [my_bracket] + nav_items
+    context = view.get_context(request, nav_items=nav_items)
+    context['tournament'] = tourney
+    return context
 
 
 def get_form_or_match(request, user, match, rnd, *args, num_rounds=None, **kwargs):
@@ -56,21 +104,14 @@ def get_form_or_match(request, user, match, rnd, *args, num_rounds=None, **kwarg
 
 
 def tournament_standings(request):
-    year = request.GET.get("year", current_year())
-    tourney = get_object_or_404(Tournament, Q(year=year) | Q(name__iexact=request.GET.get("tournament", None)))
+    tourney = get_tournament_or_404(request)
 
     view = MarchMadnessNav(title=str(tourney), page_title="Tournament Standings")
+    context = get_nav_items(request, view, tourney)
 
-    nav_items = [view.NavItem(rnd, str(rnd), app="March Madness") for rnd in tourney.rounds.all()]
-    if request.user and request.user.is_authenticated:
-        url = reverse("march_madness:bracket", kwargs={"user": request.user.username})
-        my_bracket = view.NavItem(url, "My Bracket", app="March Madness")
-        nav_items = [my_bracket] + nav_items
-    context = view.get_context(request, nav_items=nav_items)
-
-    context["tournament"] = tourney
     num_rounds = tourney.rounds.count()
-    context["matches"] = {rnd: [get_form_or_match(request, None, mtch, rnd, num_rounds=num_rounds) for mtch in rnd.matches.all()]
+    context["matches"] = {rnd: [get_form_or_match(request, None, mtch, rnd, num_rounds=num_rounds)
+                                for mtch in rnd.matches.all()]
                           for rnd in tourney.rounds.all().select_related()}
     return render(request, "march_madness/bracket.html", context)
 
@@ -82,23 +123,14 @@ def view_bracket(request, user=None):
     elif user is None:
         user = request.user
 
-    year = request.GET.get("year", current_year())
-    tourney = get_object_or_404(Tournament, Q(year=year) | Q(name__iexact=request.GET.get("tournament", None)))
+    tourney = get_tournament_or_404(request)
     if not isinstance(user, get_user_model()):
         user = get_object_or_404(get_user_model(), username__iexact=str(user))
 
     view = MarchMadnessNav(title=str(tourney), page_title="%s's Bracket" % user.username)
-
-    # Page navigation
-    nav_items = [view.NavItem(rnd, str(rnd), app="March Madness") for rnd in tourney.rounds.all()]
-    if request.user and request.user.is_authenticated:
-        url = reverse("march_madness:bracket", kwargs={"user": request.user.username})
-        my_bracket = view.NavItem(url, "My Bracket", app="March Madness")
-        nav_items = [my_bracket] + nav_items
-    context = view.get_context(request, nav_items=nav_items)
+    context = get_nav_items(request, view, tourney)
 
     context["user"] = user
-    context["tournament"] = tourney
     num_rounds = tourney.rounds.count()
     context["matches"] = {rnd: [get_form_or_match(request, user, mtch, rnd, num_rounds=num_rounds) for mtch in rnd.matches.all()]
                           for rnd in tourney.rounds.all().select_related()}
@@ -108,23 +140,13 @@ def view_bracket(request, user=None):
 @login_required
 def view_round(request, pk):
     """View the round for the given user."""
-    year = request.GET.get("year", current_year())
-    tourney = get_object_or_404(Tournament, Q(year=year) | Q(name__iexact=request.GET.get("tournament", None)))
+    tourney = get_tournament_or_404(request)
     user = request.user
-
-    rnd = tourney.rounds.get(pk=pk)
+    rnd = get_object_or_404(Round, tournament=tourney, pk=pk)
 
     view = MarchMadnessNav(title=str(tourney), page_title=str(rnd))
+    context = get_nav_items(request, view, tourney)
 
-    # Page navigation
-    nav_items = [view.NavItem(rnd, str(rnd), app="March Madness") for rnd in tourney.rounds.all()]
-    if request.user and request.user.is_authenticated:
-        url = reverse("march_madness:bracket", kwargs={"user": request.user.username})
-        my_bracket = view.NavItem(url, "My Bracket", app="March Madness")
-        nav_items = [my_bracket] + nav_items
-    context = view.get_context(request, nav_items=nav_items)
-
-    context["tournament"] = tourney
     context["rnd"] = rnd
     num_rounds = tourney.rounds.count()
     context["matches"] = [get_form_or_match(request, user, match, rnd, num_rounds=num_rounds) for match in rnd.matches.all()]
@@ -157,24 +179,14 @@ def user_prediction(request):
 
 
 def view_group_scores(request):
-    year = request.GET.get("year", current_year())
-    tourney = get_object_or_404(Tournament, Q(year=year) | Q(name__iexact=request.GET.get("tournament", None)))
-
+    tourney = get_tournament_or_404(request)
     view = MarchMadnessNav(title=str(tourney), page_title="Group Scores")
-
-    # Page navigation
-    nav_items = [view.NavItem(rnd, str(rnd), app="March Madness") for rnd in tourney.rounds.all()]
-    if request.user and request.user.is_authenticated:
-        url = reverse("march_madness:bracket", kwargs={"user": request.user.username})
-        my_bracket = view.NavItem(url, "My Bracket", app="March Madness")
-        nav_items = [my_bracket] + nav_items
-    context = view.get_context(request, nav_items=nav_items)
+    context = get_nav_items(request, view, tourney)
 
     def modify_user(mem, tourney):
         mem.score = tourney.get_user_score(mem) or 0
         return mem
 
-    context["tournament"] = tourney
     context["groups"] = [{"name": group.name, "captain": group.captain, "score": 0,
                           "members": [modify_user(mem, tourney)
                                       for mem in group.members.all()]}
@@ -185,4 +197,3 @@ def view_group_scores(request):
             group["score"] += user.score
 
     return render(request, "march_madness/group_scores.html", context)
-
