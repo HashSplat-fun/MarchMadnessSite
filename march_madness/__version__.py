@@ -1,0 +1,6 @@
+name = 'march_madness'
+version = '0.0.1'
+description = 'March Madness Site'
+url = 'https://github.com/justengel-django/MarchMadnessSite'
+author = 'Alan Carr'
+author_email = 'acarr@sealandaire.com'

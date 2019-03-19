@@ -1,2 +1,4 @@
 django>=2.0
 django_materialize_nav>=0.1.6
+Pillow>=5.4.1
+django_reversion>=3.0.3
