@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib import admin
+from reversion.admin import VersionAdmin
 
 
 from .models import Tournament, Round, Match, UserPrediction, Group, Team, TeamRank
@@ -36,7 +37,7 @@ class TournamentAdmin(admin.ModelAdmin):
 
 @admin.register(Round)
 class RoundAdmin(admin.ModelAdmin):
-    list_display = ("tournament", "name", 'round_number', 'start_date', 'end_date', "match_names")
+    list_display = ("id", "tournament", "name", 'round_number', 'start_date', 'end_date', "match_names")
     list_filter = ['tournament__year', 'round_number', 'start_date']
     search_fields = ['name']
     ordering = ('tournament', 'round_number')
@@ -49,7 +50,7 @@ class RoundAdmin(admin.ModelAdmin):
 
 @admin.register(Match)
 class MatchAdmin(admin.ModelAdmin):
-    list_display = ("round", "match_number", "date", "team1", "team2", "victor", "tournament_value")
+    list_display = ("id", "round", "match_number", "date", "team1", "team2", "victor", "tournament_value")
     list_filter = ['round__tournament__year', 'round__round_number', 'match_number', 'date']
     search_fields = ['team1__name', 'team2__name', 'victor__name']
     ordering = ('round__tournament', 'round__round_number', 'match_number')
@@ -70,10 +71,9 @@ class MatchAdmin(admin.ModelAdmin):
 
     form = MatchForm
 
-
 @admin.register(UserPrediction)
-class UserPredictionAdmin(admin.ModelAdmin):
-    list_display = ("user", "match", "guess", "team1_score", "team2_score")
+class UserPredictionAdmin(VersionAdmin):
+    list_display = ("id", "user", "match", "guess", "team1_score", "team2_score")
     list_filter = ['match__round__tournament__year', 'match__round__round_number', 'match__match_number']
     search_fields = ['user__first_name', 'user__username', 'guess__name']
     ordering = ('user', 'match__round__round_number', 'match__match_number')
@@ -81,7 +81,7 @@ class UserPredictionAdmin(admin.ModelAdmin):
 
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
-    list_display = ("tournament", "name", "captain", "member_names")
+    list_display = ("id", "tournament", "name", "captain", "member_names")
     list_filter = ['tournament__year']
     search_fields = ['name', 'captain__username', 'captain__first_name']
     ordering = ('tournament', 'name',)
