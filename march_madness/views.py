@@ -72,15 +72,17 @@ def get_nav_items(request, view, tourney):
     return context
 
 
-def get_form_or_match(request, user, match, rnd, *args, num_rounds=None, **kwargs):
+def get_form_or_match(request, user, match, rnd, *args, num_rounds=None, check_captain=False, **kwargs):
     now = timezone.now().date()
 
     match.num_rounds = num_rounds
 
+    is_captain = check_captain and match.get_captain_for_user(user) == request.user
+    can_user_vote = request.user.is_authenticated and (user == request.user or is_captain)
+
     if user is None:
         return match
-    elif match.victor or (user != request.user or not user.is_authenticated) or \
-            (rnd and (rnd.start_date and now >= rnd.start_date)):
+    elif match.victor or not can_user_vote or (rnd and (rnd.start_date and now >= rnd.start_date)):
         match.user_guess = match.prediction(user)
 
         parent1, parent2 = match.parent_matches()
@@ -137,6 +139,28 @@ def view_bracket(request, user=None):
     return render(request, "march_madness/bracket.html", context)
 
 
+def captain_view_bracket(request, user=None):
+    """View the bracket for the given user if Captain."""
+    if user is None and not request.user.is_authenticated:
+        return redirect("login")
+    elif user is None:
+        user = request.user
+
+    tourney = get_tournament_or_404(request)
+    if not isinstance(user, get_user_model()):
+        user = get_object_or_404(get_user_model(), username__iexact=str(user))
+
+    view = MarchMadnessNav(title=str(tourney), page_title="%s's Bracket" % user.username)
+    context = get_nav_items(request, view, tourney)
+
+    context["user"] = user
+    num_rounds = tourney.rounds.count()
+    context["matches"] = {rnd: [get_form_or_match(request, user, mtch, rnd, num_rounds=num_rounds, check_captain=True)
+                                for mtch in rnd.matches.all()]
+                          for rnd in tourney.rounds.all().select_related()}
+    return render(request, "march_madness/bracket.html", context)
+
+
 @login_required
 def view_round(request, pk):
     """View the round for the given user."""
@@ -156,15 +180,13 @@ def view_round(request, pk):
 
 @login_required
 def user_prediction(request):
-    user = request.user
-
-    if request.method == "GET" or (user is None or not user.is_authenticated):
+    if request.method == "GET" or (request.user is None or not request.user.is_authenticated):
         return redirect("march_madness:home")
 
     post_data = {key: request.POST[key] for key in request.POST}
-    post_data["user"] = user.id
+    user = get_object_or_404(get_user_model(), pk=post_data['user'])  # Get the correct user. Captain can vote now
     match = Match.objects.get(pk=request.POST["match"])
-    form = get_form_or_match(request, user, match, None, post_data)
+    form = get_form_or_match(request, user, match, None, post_data, check_captain=True)
     if form.is_valid():
         instance = form.save()
         if request.is_ajax():

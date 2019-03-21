@@ -244,6 +244,12 @@ class Match(models.Model):
         except UserPrediction.DoesNotExist:
             return None
 
+    def get_captain_for_user(self, user):
+        try:
+            return self.round.tournament.groups.get(members__in=[user]).captain
+        except (Group.DoesNotExist, AttributeError, Exception):
+            return None
+
     def get_absolute_url(self):
         return reverse('march_madness:round', args=[self.id])
 
