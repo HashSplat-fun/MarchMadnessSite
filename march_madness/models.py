@@ -249,8 +249,8 @@ class Match(models.Model):
 
     def __str__(self):
         if self.round:
-            return "Round " + str(self.round.round_number) + " Match " + str(self.match_number)
-        return "Match " + str(self.match_number)
+            return '{} R {} M {}'.format(self.round.tournament, self.round.round_number, self.match_number)
+        return 'M {}'.format(self.match_number)
 
     def save(self, *args, **kwargs):
         ret = super().save(*args, **kwargs)
