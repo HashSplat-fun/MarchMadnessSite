@@ -145,3 +145,34 @@ def line_up_matches(tournament):
             #     next_match.team2.add(*match2.teams.all())
             # next_match.save()
         prev_round = next_round
+
+
+def calculate_points(match, round_mapping=None, seed_mapping=None):
+    """If Higher Seed wins give multiplier else normal"""
+    if round_mapping is None:
+        round_mapping = {}
+
+    if seed_mapping is None:
+        seed_mapping = {}
+
+    round_value = round_mapping.get(match.round.round_number, 1)
+    year = match.round.tournament.year
+    team1 = match.victor
+    if team1 is None:
+        return
+    if team1 == match.team1:
+        team2 = match.team2
+    else:
+        team2 = match.team11
+
+    try:
+        seed1 = team1.rankings.get(year=year).seed
+        seed2 = team2.rankings.get(year=year).seed
+        seed_match = "{seed1} v {seed2}".format(seed1=seed1, seed2=seed2)
+        seed_value = seed_mapping.get(seed_match, 1)  # Creating Seed Value from documented Seed Details
+
+        match.tournament_value = round_value * seed_value
+        match.save()
+    except:
+        return
+
