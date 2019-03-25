@@ -32,7 +32,7 @@ class Command(BaseCommand):
         }
 
         t = options['tournament_name']
-        t, y = t.rsplit(' ')
+        t, y = t.rsplit(' ', 1)
         tournament = Tournament.objects.get(name=t, year=int(y))
 
         for m in Match.objects.filter(round__tournament=tournament):
