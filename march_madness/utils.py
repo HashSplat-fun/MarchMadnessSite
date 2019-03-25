@@ -163,7 +163,7 @@ def calculate_points(match, round_mapping=None, seed_mapping=None):
     if team1 == match.team1:
         team2 = match.team2
     else:
-        team2 = match.team11
+        team2 = match.team1
 
     try:
         seed1 = team1.rankings.get(year=year).seed
